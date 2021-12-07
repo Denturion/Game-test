@@ -1,0 +1,41 @@
+{
+  "name": "dom-testing-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve assignment",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@html-validate/jest-config": "^1.1.0",
+    "html-validate": "^4.0.2",
+    "regenerator-runtime": "^0.13.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@testing-library/dom": "^7.2.1",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@types/puppeteer": "^5.4.0",
+    "h5tests": "github:H5-classroom/h5tests",
+    "babel-jest": "^25.3.0",
+    "express": "^4.17.1",
+    "jest": "^25.3.0",
+    "puppeteer": "^5.5.0",
+    "serve": "^11.3.0"
+  },
+  "jest": {
+    "clearMocks": true,
+    "setupFilesAfterEnv": ["regenerator-runtime/runtime"],
+    "testPathIgnorePatterns": [],
+    "haste": {
+      "providesModuleNodeModules": [
+        "h5tests/sun-vs-moon"
+      ]
+    }
+  }
+}
