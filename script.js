@@ -24,6 +24,32 @@ const hero = {
 };
 
 
+function detectCollisions(){
+  let obj1;
+  let obj2;
+
+  // Reset collision state of all objects
+  for (let i = 0; i < gameObjects.length; i++) {
+      gameObjects[i].isColliding = false;
+  }
+
+  // Start checking for collisions
+  for (let i = 0; i < gameObjects.length; i++)
+  {
+    obj1 = gameObjects[i];
+    for (let j = i + 1; j < gameObjects.length; j++)
+    {
+      obj2 = gameObjects[j];
+
+      // Compare object1 with object2
+      if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, obj2.x, obj2.y, obj2.width, obj2.height)){
+          obj1.isColliding = true;
+           obj2.isColliding = true;
+      }
+    }
+  }
+}
+
 // Create the obstacles for each frame
 const nextFrame = () => {
   // Increase the frame / "level" count
@@ -93,7 +119,7 @@ const loop = function () {
   }
 
   // If hero is going off the left of the screen
-  if (hero.x < -20) {
+  if (hero.x < -40) {
     hero.x = 1220;
   } else if (hero.x > 1220) { // If hero goes past right boundary
 
@@ -125,6 +151,10 @@ const loop = function () {
     context.closePath();
     context.fill();
   })
+
+
+
+  
 
 
   // Creates the "ground" for each frame
