@@ -1,5 +1,6 @@
 const context = document.querySelector("canvas").getContext("2d");
 
+//Render canvas
 context.canvas.height = 400;
 context.canvas.width = 1220;
 
@@ -10,8 +11,9 @@ let obCount = frameCount;
 // Create a collection to hold the generated x coordinates
 const obXCoors = [];
 
-const square = {
 
+//Render hero
+const hero = {
   height: 32,
   jumping: true,
   width: 32,
@@ -19,7 +21,6 @@ const square = {
   xVelocity: 0,
   y: 0,
   yVelocity: 0
-
 };
 
 // Create the obstacles for each frame
@@ -64,48 +65,42 @@ const controller = {
 
 const loop = function () {
 
-  if (controller.up && square.jumping == false) {
+  if (controller.up && hero.jumping == false) {
 
-    square.yVelocity -= 30;
-    square.jumping = true;
-
+    hero.yVelocity -= 30;
+    hero.jumping = true;
   }
 
   if (controller.left) {
 
-    square.xVelocity -= 0.5;
-
+    hero.xVelocity -= 0.5;
   }
 
   if (controller.right) {
 
-    square.xVelocity += 0.5;
-
+    hero.xVelocity += 0.5;
   }
 
-  square.yVelocity += 1.5;// gravity
-  square.x += square.xVelocity;
-  square.y += square.yVelocity;
-  square.xVelocity *= 0.9;// friction
-  square.yVelocity *= 0.9;// friction
+  hero.yVelocity += 1;// gravity
+  hero.x += hero.xVelocity;
+  hero.y += hero.yVelocity;
+  hero.xVelocity *= 0.9;// friction
+  hero.yVelocity *= 0.9;// friction
 
   // if square is falling below floor line
-  if (square.y > 386 - 16 - 32) {
+  if (hero.y > 386 - 16 - 32) {
 
-    square.jumping = false;
-    square.y = 386 - 16 - 32;
-    square.yVelocity = 0;
-
+    hero.jumping = false;
+    hero.y = 386 - 16 - 32;
+    hero.yVelocity = 0
   }
 
   // if square is going off the left of the screen
-  if (square.x < -20) {
+  if (hero.x < -20) {
+    hero.x = 1220;
+  } else if (hero.x > 1220) {// if square goes past right boundary
 
-    square.x = 1220;
-
-  } else if (square.x > 1220) {// if square goes past right boundary
-
-    square.x = -20;
+    hero.x = -20;
     nextFrame();
 
   }
@@ -117,7 +112,7 @@ const loop = function () {
   // Creates and fills the cube for each frame
   context.fillStyle = "#d3d600"; // hex for cube color
   context.beginPath();
-  context.rect(square.x, square.y, square.width, square.height);
+  context.rect(hero.x, hero.y, hero.width, hero.height);
   context.fill();
 
 
