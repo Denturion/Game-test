@@ -15,17 +15,18 @@ const obXCoors = [];
 //Render hero
 const hero = {
   height: 32,
-  jumping: true,
   width: 32,
+  jumping: true,
   x: 20,
   xVelocity: 0,
   y: 0,
   yVelocity: 0
 };
 
+
 // Create the obstacles for each frame
 const nextFrame = () => {
-  // increase the frame / "level" count
+  // Increase the frame / "level" count
   frameCount++;
   
   for (let i = 0; i < obCount; i++) {
@@ -33,7 +34,6 @@ const nextFrame = () => {
     obXCoor = Math.floor(Math.random() * (1165 - 140 + 1) + 140);
     obXCoors.push(obXCoor);
   }
-
 }
 
 const controller = {
@@ -56,11 +56,8 @@ const controller = {
       case 39:// right key
         controller.right = key_state;
         break;
-
     }
-
   }
-
 };
 
 const loop = function () {
@@ -81,13 +78,13 @@ const loop = function () {
     hero.xVelocity += 0.5;
   }
 
-  hero.yVelocity += 1;// gravity
+  hero.yVelocity += 1; // Gravity
   hero.x += hero.xVelocity;
   hero.y += hero.yVelocity;
-  hero.xVelocity *= 0.9;// friction
-  hero.yVelocity *= 0.9;// friction
+  hero.xVelocity *= 0.9; // Friction
+  hero.yVelocity *= 0.9; // Friction
 
-  // if square is falling below floor line
+  // If hero is falling below floor line
   if (hero.y > 386 - 16 - 32) {
 
     hero.jumping = false;
@@ -95,22 +92,21 @@ const loop = function () {
     hero.yVelocity = 0
   }
 
-  // if square is going off the left of the screen
+  // If hero is going off the left of the screen
   if (hero.x < -20) {
     hero.x = 1220;
-  } else if (hero.x > 1220) {// if square goes past right boundary
+  } else if (hero.x > 1220) { // If hero goes past right boundary
 
     hero.x = -20;
     nextFrame();
-
   }
   // Creates the backdrop for each frame
   context.fillStyle = "#1a1a1a";
   context.fillRect(0, 0, 1220, 400); // x, y, width, height
 
 
-  // Creates and fills the cube for each frame
-  context.fillStyle = "#d3d600"; // hex for cube color
+  // Creates and fills the hero for each frame
+  context.fillStyle = "#d3d600"; // hex for hero color
   context.beginPath();
   context.rect(hero.x, hero.y, hero.width, hero.height);
   context.fill();
@@ -120,14 +116,12 @@ const loop = function () {
   // Set the standard obstacle height
   const height = 200 * Math.cos(Math.PI / 6);
 
-  context.fillStyle = "red"; // hex for triangle color
+  context.fillStyle = "red";
   obXCoors.forEach((obXCoor) => {
     context.beginPath();
-
-    context.moveTo(obXCoor, 385); // x = random, y = coor. on "ground"
-    context.lineTo(obXCoor + 20, 385); // x = ^random + 20, y = coor. on "ground"
-    context.lineTo(obXCoor + 10, 510 - height); // x = ^random + 10, y = peak of triangle
-  
+    context.moveTo(obXCoor, 385); 
+    context.lineTo(obXCoor + 20, 385); 
+    context.lineTo(obXCoor + 10, 510 - height);   
     context.closePath();
     context.fill();
   })
@@ -141,9 +135,8 @@ const loop = function () {
   context.lineTo(1220, 385);
   context.stroke();
 
-  // call update when the browser is ready to draw again
+  // Call update when the browser is ready to draw again
   window.requestAnimationFrame(loop);
-
 };
 
 window.addEventListener("keydown", controller.keyListener)
